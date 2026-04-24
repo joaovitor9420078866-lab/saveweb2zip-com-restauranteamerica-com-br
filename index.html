@@ -43,6 +43,8 @@
         radial-gradient(circle at 85% 0%, rgba(255, 154, 61, 0.16), transparent 22%),
         linear-gradient(180deg, #090909 0%, #121212 45%, #0b0b0b 100%);
       min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body::before {
@@ -82,9 +84,19 @@
       text-decoration: none;
     }
 
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--orange-strong);
+      outline-offset: 3px;
+    }
+
     img {
       width: 100%;
       display: block;
+    }
+
+    section[id] {
+      scroll-margin-top: 108px;
     }
 
     .container {
@@ -108,6 +120,7 @@
       justify-content: space-between;
       gap: 18px;
       padding: 16px 0;
+      min-height: 88px;
     }
 
     .brand {
@@ -190,6 +203,7 @@
       border-radius: 999px;
       font-weight: 800;
       transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+      white-space: nowrap;
     }
 
     .header-button:hover,
@@ -214,13 +228,14 @@
     }
 
     .hero {
-      padding: 34px 0 22px;
+      padding: 34px 0 28px;
     }
 
     .hero-grid {
       display: grid;
       grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
       gap: 22px;
+      align-items: stretch;
     }
 
     .hero-main,
@@ -237,14 +252,14 @@
     }
 
     .hero-main {
-      min-height: 620px;
+      min-height: clamp(540px, 72vh, 680px);
       padding: 34px;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
       background:
         linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.74)),
-        url("images/capa-site-2.jpg") center/cover no-repeat;
+        url("images/capa-site-2.jpg") center center/cover no-repeat;
       isolation: isolate;
     }
 
@@ -320,12 +335,14 @@
       flex-wrap: wrap;
       gap: 14px;
       margin-top: 24px;
+      align-items: center;
     }
 
     .hero-side {
       padding: 22px;
       display: grid;
       gap: 16px;
+      align-content: stretch;
       background:
         linear-gradient(180deg, rgba(16, 16, 16, 0.96), rgba(21, 21, 21, 0.94));
     }
@@ -378,6 +395,7 @@
     }
 
     .mini-card-image img {
+      width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform 0.6s ease;
@@ -398,11 +416,12 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
       filter: none;
     }
 
     .section {
-      padding: 26px 0;
+      padding: 30px 0;
     }
 
     .section-head {
@@ -508,6 +527,7 @@
       margin-top: 16px;
       color: var(--orange-strong);
       font-weight: 800;
+      min-height: 44px;
     }
 
     .card-link::after {
@@ -561,19 +581,28 @@
       color: #8f847d;
       text-align: center;
       font-size: 0.9rem;
+      line-height: 1.6;
     }
 
     @media (max-width: 980px) {
       .hero-grid,
-      .cards-grid,
       .locations-grid {
         grid-template-columns: 1fr;
+      }
+
+      .cards-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .hero-side {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
     }
 
     @media (max-width: 760px) {
       .header-inner {
         flex-wrap: wrap;
+        min-height: unset;
       }
 
       .nav {
@@ -598,13 +627,26 @@
       }
 
       .hero-main {
-        min-height: 520px;
+        min-height: 500px;
         padding: 24px;
+        background-position: 62% center;
+      }
+
+      .hero-side {
+        grid-template-columns: 1fr;
       }
 
       .hero-side,
       .cta-strip {
         padding: 22px;
+      }
+
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section {
+        padding: 24px 0;
       }
     }
 
@@ -616,6 +658,11 @@
 
       .brand-copy strong {
         font-size: 1.35rem;
+      }
+
+      .brand-copy span {
+        font-size: 0.68rem;
+        letter-spacing: 0.16em;
       }
 
       .hero-title {
@@ -631,6 +678,14 @@
       .card,
       .cta-strip {
         border-radius: 24px;
+      }
+
+      .image-frame {
+        aspect-ratio: 1 / 1;
+      }
+
+      .section-head {
+        margin-bottom: 16px;
       }
     }
 
@@ -656,6 +711,29 @@
 
       .hero-actions {
         flex-direction: column;
+        align-items: stretch;
+      }
+
+      .hero-main,
+      .hero-side,
+      .card,
+      .cta-strip {
+        border-radius: 22px;
+      }
+
+      .hero-main {
+        min-height: 460px;
+        padding: 22px;
+      }
+
+      .cta-strip {
+        text-align: center;
+        justify-content: center;
+      }
+
+      .cta-strip > div {
+        display: grid;
+        gap: 10px;
       }
     }
   </style>
@@ -665,7 +743,7 @@
     <div class="container header-inner">
       <a class="brand" href="#top" aria-label="Suindara Indaiatuba">
         <div class="brand-mark">
-          <img src="images/suindara-logo.jpg" alt="Logo Suindara">
+          <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/7QCEUGhvdG9zaG9wIDMuMAA4QklNBAQAAAAAAGgcAigAYkZCTUQwYTAwMGFiMzAxMDAwMGMwMDIwMDAwZDgwMzAwMDA3MTA0MDAwMDA4MDUwMDAwNzYwNzAwMDBmOTA5MDAwMDUzMGEwMDAwYzQwYTAwMDAxYzBiMDAwMDVmMGQwMDAwAP/bAIQABQYGCwgLCwsLCw0LCwsNDg4NDQ4ODw0ODg4NDxAQEBEREBAQEA8TEhMPEBETFBQTERMWFhYTFhUVFhkWGRYWEgEFBQUKBwoICQkICwgKCAsKCgkJCgoMCQoJCgkMDQsKCwsKCw0MCwsICwsMDAwNDQwMDQoLCg0MDQ0MExQTExOc/8IAEQgAlgCWAwEiAAIRAQMRAf/EAH4AAQACAgMAAAAAAAAAAAAAAAAFBwMEAQIGEAACAAMEBgYIBQQDAAAAAAABAgADEQQSITEiMkFRYXEQEzCBkaEgIzNCcrHB0QVSYOHwFEBQYoKS4hEBAAEDAwIGAQUBAQAAAAAAAREAITFBUWFxgRAwkaHB8LEgYNHh8UBQ/9oADAMBAAIAAwAAAAGmAAAAAAAAALnpi5ymAAAAAAAAALnpi5ymAAAJTLhwZ91x3wbGpETnOXDBDZ1gAFz0xc5TAAHPHJ6DWz86W9jm4nH177ODcieesZ129Td0Q54AXPTFzlMASU7HmlHTUKeg668/oSMBLRMnz11+voPK5McVwbWoAAuemLnKYB7Dx8tuHEB7KQPC7k5Mde3mov0/oOneP8H7LHlxeFWDBkPpWj4chgLnpi5ymATUvHR5H8ynQjsu50NGW47kOndY0OM+YjQALnpi5ymAAAAAAAAALnpi5ymAAAAAAAAALnpi5ymFzimFzimFzimFzimFzimFzimFzimFzimFzimLnD//2gAIAQEAAQUC/ScqzNMjqpKx1cgxNsrIO2s8oGJ1oMyJdiZgLNLaPWWVp8sEdradBbIgd/6mYWmMEWSxmLYzUntbf7T8P9rMV5MG0YYylsntZut2MmyzJ0TbNMldFo00sHtLPOZGn2t0e3HGxi72VjsyBLTbnnxY9aLPOCRZ7OUmWVLzquNmsyTEmzqr2M837LCTZcuVCyiws05pbf110esnt+JHqEeS6dIkOR6Vmn9WTYjWxrZ+ttUkTluyTJ/D0RFtUhXWyNIVLJaUM2a6TZVi6oxZZCXplqlsxVJY9GSigWxi0npDkCLJ7ToRyhZi3YSrRLC2i0NPaVKVlEodWZQuMghpIvy0uzDL62ZKkhwALrygE/Un/9oACAEDAAE/Af7dUCgM+3VUYE8Sdi+ZgI2HqUFcgTQnlVrxh5WtQFSushzHEcPMdhSs8LsDhRuouA7oWYUvh2N7MVxoxahKHihO6K0aQDrZGud1jgDxofAwwoT6ckdY8txjit8bQRt+E798SS9wAMV0s66qgaR4DHvMdaC7TN2oNpOS+GZ7BHKEEGhGUPPd8C2A2ZDwGH+O/9oACAECAAE/Af7dnJJVNmsxxA4AbW8hF9cfXOaZkC8Bzot0Qk3KpDBtVxkeB4+R7CtJBbaULd7CphpYe4UAu5HZVQtQHHB6b6Rms4jLMUyvKMSOFR4gwDWnpzT1aTEOGDXDvB2fEN20ROCXySobRyprMTojnh3COqNxZe/XOymbeOQ7B0DAgioOcJJVMQuJzOZ8Tj/jv//aAAgBAQAGPwL9J1yX8xwEYzC3wj7xg7L8Q+0XsGX8wx7cu+oufE7o3KMl2CLzaC7z9oos7H4SI/lDHWJqnMflPbS5fC8ebQK5CpPdBcE/SkB5Yo87y3074mS2xoCwrsIgyzlMFO/Z2x5L8oHI/KDdNZb7d4iUFwaXDO/tJuAHPMwnxCG5n59loIW5DDxyjSWg35jxHRLmcLrcxA5N8oABwJFRshlWgodgFYRTiVUV5nGGmnJBh8Ry7Iz53s1NFXa7buW+KaqDJFwUd0FdjI9e5SfIivQVbFGz+8BhpIQ1G7tsDcuJ5CDOmZVqo2sYmTp1atfuAf6ipPLIQqLgo822nspFMpZdW4MTUeI6DdqZr4Mdirw59DNsTPvwjDS/13xREVfOPedvGEkDWuKDwGsf+z/IRpKV5inTeuNd30w9M1F5Gwdd4+42GKgjqsxMOAofrwFYRTVxXFm0Vw4Z+JgzMDOaab+kKS1plu7+6DLVl6wOCXbC8Ke6dwPjnE5largBb/upfrUjbgoOOG6JJlKFS5pMTtr7x3/wRLRXrWZpjIvTL/gM4nTpjBXIJQkVoT9QMoUS2CYt1l86TY6JJ2/SJkrWS4XmPkdDK7++cK083ZZI5t/53nwidRxfp6t8lWh1U3aO3afM1PWPsA1Rxrt7vS6yZiMlX8x+w2+ESS+sS90ZUTRphurWnoEAmjZjf0DvpzunpqpIO8RUmp49gt+WXKVppUXE1xFK+cXm/YDcOEMSaEZDfgTF7bX7feA1cTCXfeH1i6GqDkf5xjWu3RWu40r84e8w244Cp2ZYYwatQj7E/SCdtR5wrb/3/Uv/2gAIAQEBAT8h/aZUIDKw9/4rCe7frTUtwpSAOWw76nn42d9pDrTfYVg+61MYywKxvC9Mwl4GQ9ai+tOmT+fzR84SPbejp5zhdDy/xFZygLcMxXOgQlOgTEVxshe3DrpIyleWXm961uXsEr1oQo6eYV2VjpGtRi70lQtscbmw7OlOksi+ZV0KTHo6gMjbpWho0+PmeVgqMth1wetCS0kQSTaRJ48DEfCw+pX1W+nxgGRS7NXjNB90pZC4rdzK3IXVYFLPkyTsC2y7tBqq9E2WXRnq0l0UHSAXsB08IQ4Z1NhyU6NsHVbY1O3NPoXKEOhtOoktsatK2gkIu6eDDyxRkIIu6FzvjypjjTyU+y8J4CkLWAT7m9IC6ElJGaK0QDJDKEGVnaraoRkLFnG1Dgu8fLPetlCmAVHQwVsEadA6pLxvUbIzufl4wUl1iwzeNNf1wyB/EtkvoPE1PBWJz4N10pIRK3mCDMQL1KBYzcorKooLwO8rJOMiG19AKEZYiEmgYfQMLHUgZJCkrNAzNSY4hCJTpQGI1siKkkZ42Vz2vRbsFpWFUsKnsgDs1PNs8LJhnGW0yYCKiJug1wOwvvQRQFkaNCcxkHwXYHrXGmOxYx2C5pSCFBJN3VZLYs1XR/S/KFuYTuy5JiRdkG5BcLiAsgDEHJn9B7UETBBkk1h8JwmUPUA9/EIRYRH1KdVNlUvq+QEWibvcRQ7CSzSVyYAAgWA0G1X0I6D4G562pCm3SNAMm2vIxRD3EJbnHpfrjE2pMgspZUfGtDIBWYvZ+EUICoF+ERCb3LMOKsNXugoxZqLsaS1eElhi8O1zZG/WJe6YgFoiXe0e9EpVz2LiMcb/ALl//9oADAMBAQIBAwEAABDzzzzzzzzyjzzzzzzzzyjzzyuJ/wA88o88slS1188o84gwdw888o8UMxhQ4U8o8sgUcEU88o888888888o888888888owwwwwwwwwg/9oACAEDAQE/EP8Anlqb5UEYbi5JhQQjNKw975+j7FGy435u2U6iakvkXtCLOqPaVdEywkBJNQmxtxUpyyh2LzzW2KgGynp+vK9bsoFvd2THSoc5beDJG6PQL1O7vTAy9p0I8iQMJVEinAbPSL2f+d//2gAIAQIBAT8Q/wCeDAthSW+BYhyAizin6Hty+5Tfe/DTYnY8j7JcutcIMMEIJoWXU+9pOjVSItwf1+y90z4vBalTjRT3IvepUHwo+mc+RgTEVPf+chZ//9oACAEBAQE/EP2m6H5WAzR5Yv8ArKLPdFJSx+lL3PPGwjZkf33FFh0nBa2rSx6LgNjA6xQm04a9RTYW/wBX8fg88uV9MUfWYvSJj6wBLWP7/hCHrR2iMiOkofOREcZ4GaP2UPvEUXMEj1PMy8Ohh9DJqVaFD5005lih0lbNBdjPLWRS9mv46hX7ib+1MeI+nlEhq4nsncoYaO4NA+Rmis27febwcGEQcQA5DGtRTgYoTwzU+o5G4vqV8CEP5k0iVuvk3kjBYvqB2ah7dONe46rUjeuJ46gaPgtGymGMjoJ3qPHj13V1iK1G0efgUHyWIMzIHvn/AFAHD28l8FH+DpE7hp8gQ8P8qygQ7NqvM5VLYsylgYFalAy9gCXLFL8tru9/kUqEwA0OGx6eCMQKLhlvA35JiwvF48cyyTfAsPBjX9epMbi7Mr6mYHnMhTvailGtdDMI2Ehm/o9F9gpqSiMB/o+eoIkIlX9dRQKa4g0WVyNpcSZYyeGLVyhUdA2FI7I7+fRY/GxUSeMXlqHZdd3VfNqNbUAO+fQeauwCL6RJaD8OEgc/127/AFUrDbJYgLPyQFadjZXb23rc8E+AQGCI4grZBOvh9puV1meMoFoFzZwNyzWWvCN1kfI0FKucCkHi3IgI8Htn2Lj5VsG0vyTT6E3JDhgu4RqfkVMw+kpcfcF1boFobCNsauDUq1TOAzE1bcEFgGlujJsrWQ+0icZSiFkNmTcLgsORoUWq/wDTg5j2uzuCh5/uA/z/AHL/AP/Z" alt="Logo Suindara" decoding="async">
         </div>
         <div class="brand-copy">
           <strong>Suindara</strong>
@@ -708,15 +786,15 @@
 
         <aside class="hero-side">
           <div class="mini-card mini-card-image">
-            <img src="images/suindara-buffet.jpg" alt="Buffet a vontade do Suindara">
+            <img src="images/suindara-buffet.jpg" alt="Buffet a vontade do Suindara" loading="lazy" decoding="async">
           </div>
 
           <div class="mini-card mini-card-image">
-            <img src="images/suindara-marmita-card.jpg" alt="Marmitas do Suindara">
+            <img src="images/suindara-marmita-card.jpg" alt="Marmitas do Suindara" loading="lazy" decoding="async">
           </div>
 
           <div class="mini-card whatsapp-card" id="contato">
-            <img src="images/suindara-whatsapp-card.jpg" alt="Card de pedido do Suindara">
+            <img src="images/suindara-whatsapp-card.jpg" alt="Card de pedido do Suindara" loading="lazy" decoding="async">
           </div>
         </aside>
       </div>
@@ -734,7 +812,7 @@
         <div class="cards-grid">
           <article class="card">
             <div class="image-frame">
-              <img src="images/suindara-parmegiana.jpg" alt="Parmegiana do Suindara">
+              <img src="images/suindara-parmegiana.jpg" alt="Parmegiana do Suindara" loading="lazy" decoding="async">
             </div>
             <span class="tag">Mais pedido</span>
             <h3>Parmegiana</h3>
@@ -743,7 +821,7 @@
 
           <article class="card">
             <div class="image-frame">
-              <img src="images/suindara-churrasco.jpg" alt="Churrasco do Suindara">
+              <img src="images/suindara-churrasco.jpg" alt="Churrasco do Suindara" loading="lazy" decoding="async">
             </div>
             <span class="tag">Especial da casa</span>
             <h3>Churrasco</h3>
@@ -752,7 +830,7 @@
 
           <article class="card">
             <div class="image-frame">
-              <img src="images/suindara-marmita-card.jpg" alt="Marmita do Suindara">
+              <img src="images/suindara-marmita-card.jpg" alt="Marmita do Suindara" loading="lazy" decoding="async">
             </div>
             <span class="tag">Delivery</span>
             <h3>Marmitas</h3>
@@ -774,7 +852,7 @@
         <div class="locations-grid">
           <article class="card">
             <div class="image-frame">
-              <img src="images/suindara-localizacao-card.jpg" alt="Localizacao do Suindara em Indaiatuba">
+              <img src="images/suindara-localizacao-card.jpg" alt="Localizacao do Suindara em Indaiatuba" loading="lazy" decoding="async">
             </div>
             <span class="tag">Indaiatuba</span>
             <h3>Centro</h3>
@@ -786,7 +864,7 @@
 
           <article class="card">
             <div class="image-frame">
-              <img src="images/suindara-pedido-rapido.jpg" alt="Pedido rapido do Suindara">
+              <img src="images/suindara-pedido-rapido.jpg" alt="Pedido rapido do Suindara" loading="lazy" decoding="async">
             </div>
             <span class="tag">Online</span>
             <h3>Pedido rapido</h3>
