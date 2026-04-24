@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suindara Indaiatuba</title>
+  <meta name="description" content="Landing page do Suindara Indaiatuba com visual laranja e preto, pratos em destaque e contato rapido.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --bg-soft: #161616;
+      --panel: rgba(24, 24, 24, 0.92);
+      --panel-strong: rgba(10, 10, 10, 0.95);
+      --text: #f6eee8;
+      --muted: #b8aba2;
+      --orange: #f47c20;
+      --orange-strong: #ff9a3d;
+      --line: rgba(244, 124, 32, 0.18);
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Manrope", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(244, 124, 32, 0.16), transparent 22%),
+        radial-gradient(circle at 85% 0%, rgba(255, 154, 61, 0.16), transparent 22%),
+        linear-gradient(180deg, #090909 0%, #121212 45%, #0b0b0b 100%);
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(transparent 0, rgba(255, 255, 255, 0.02) 50%, transparent 100%);
+      mix-blend-mode: screen;
+      opacity: 0.45;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(28px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulseGlow {
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(244, 124, 32, 0.18);
+      }
+      50% {
+        box-shadow: 0 0 0 14px rgba(244, 124, 32, 0);
+      }
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(calc(100% - 28px), var(--max));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(14px);
+      background: rgba(10, 10, 10, 0.78);
+      border-bottom: 1px solid rgba(244, 124, 32, 0.12);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-mark {
+      width: 72px;
+      height: 72px;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #111;
+      box-shadow: 0 12px 28px rgba(244, 124, 32, 0.22);
+      border: 1px solid rgba(244, 124, 32, 0.18);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .brand-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .brand:hover .brand-mark {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 16px 36px rgba(244, 124, 32, 0.28);
+    }
+
+    .brand-copy strong,
+    .section-title,
+    .hero-title,
+    .card h3,
+    .cta-strip h2 {
+      font-family: "Bebas Neue", sans-serif;
+      letter-spacing: 0.04em;
+      font-weight: 400;
+    }
+
+    .brand-copy strong {
+      display: block;
+      font-size: 1.55rem;
+      line-height: 1;
+    }
+
+    .brand-copy span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .nav a {
+      transition: color 0.25s ease, opacity 0.25s ease;
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible {
+      color: var(--orange-strong);
+    }
+
+    .header-button,
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 0 22px;
+      border-radius: 999px;
+      font-weight: 800;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+    .header-button:hover,
+    .button:hover,
+    .header-button:focus-visible,
+    .button:focus-visible {
+      transform: translateY(-2px);
+    }
+
+    .header-button,
+    .button-primary {
+      color: #111;
+      background: linear-gradient(135deg, var(--orange), var(--orange-strong));
+      box-shadow: 0 16px 32px rgba(244, 124, 32, 0.26);
+      animation: pulseGlow 3.4s ease-in-out infinite;
+    }
+
+    .button-secondary {
+      color: var(--text);
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .hero {
+      padding: 34px 0 22px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+      gap: 22px;
+    }
+
+    .hero-main,
+    .hero-side,
+    .card,
+    .cta-strip {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-xl);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .hero-main {
+      min-height: 620px;
+      padding: 34px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.74)),
+        url("images/capa-site-2.jpg") center/cover no-repeat;
+      isolation: isolate;
+    }
+
+    .hero-main::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 220px;
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.84));
+      pointer-events: none;
+    }
+
+    .hero-main::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 20%, rgba(244, 124, 32, 0.28), transparent 28%),
+        linear-gradient(120deg, rgba(244, 124, 32, 0.08), transparent 34%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-main > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(244, 124, 32, 0.14);
+      border: 1px solid rgba(244, 124, 32, 0.3);
+      color: var(--orange-strong);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--orange);
+      box-shadow: 0 0 22px var(--orange);
+    }
+
+    .hero-title {
+      margin: 16px 0 12px;
+      font-size: clamp(3.8rem, 8vw, 7rem);
+      line-height: 0.88;
+      max-width: 8ch;
+      text-wrap: balance;
+      text-shadow: 0 12px 32px rgba(0, 0, 0, 0.36);
+    }
+
+    .hero-copy {
+      max-width: 560px;
+      color: rgba(246, 238, 232, 0.9);
+      line-height: 1.8;
+      font-size: 1rem;
+      max-width: 44ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .hero-side {
+      padding: 22px;
+      display: grid;
+      gap: 16px;
+      background:
+        linear-gradient(180deg, rgba(16, 16, 16, 0.96), rgba(21, 21, 21, 0.94));
+    }
+
+    .mini-card {
+      border-radius: 22px;
+      padding: 22px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+    }
+
+    .mini-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(244, 124, 32, 0.28);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+    }
+
+    .mini-card span,
+    .section-kicker {
+      display: inline-block;
+      color: var(--orange-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .mini-card h2 {
+      margin: 10px 0 8px;
+      font-size: 1.8rem;
+      font-family: "Bebas Neue", sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+    }
+
+    .mini-card p,
+    .section-copy,
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .mini-card-image {
+      padding: 0;
+      min-height: 220px;
+      background: #111;
+    }
+
+    .mini-card-image img {
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .mini-card:hover img {
+      transform: scale(1.03);
+    }
+
+    .whatsapp-card {
+      min-height: 220px;
+      padding: 0;
+      background: #111;
+      border-color: rgba(244, 124, 32, 0.18);
+    }
+
+    .whatsapp-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: none;
+    }
+
+    .section {
+      padding: 26px 0;
+    }
+
+    .section-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: end;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      margin: 8px 0 0;
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      line-height: 0.95;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .locations-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      padding: 18px;
+      background:
+        linear-gradient(180deg, rgba(26, 26, 26, 0.94), rgba(16, 16, 16, 0.96));
+      transition: transform 0.45s cubic-bezier(.22, 1, .36, 1), border-color 0.45s ease, box-shadow 0.45s ease, background 0.45s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.01);
+      border-color: rgba(244, 124, 32, 0.28);
+      box-shadow: 0 34px 64px rgba(0, 0, 0, 0.34);
+      background:
+        linear-gradient(180deg, rgba(34, 24, 18, 0.98), rgba(16, 16, 16, 0.98));
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top left, rgba(244, 124, 32, 0.14), transparent 34%);
+      opacity: 0;
+      transition: opacity 0.45s ease;
+      pointer-events: none;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .image-frame {
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      background: #111;
+    }
+
+    .image-frame img {
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.65s cubic-bezier(.22, 1, .36, 1), filter 0.65s ease;
+      filter: saturate(1.08) contrast(1.03);
+    }
+
+    .card:hover .image-frame img {
+      transform: scale(1.09);
+      filter: saturate(1.18) contrast(1.1) brightness(1.03);
+    }
+
+    .tag {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(244, 124, 32, 0.12);
+      color: var(--orange-strong);
+      border: 1px solid rgba(244, 124, 32, 0.22);
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .card h3 {
+      margin: 14px 0 8px;
+      font-size: 2rem;
+      line-height: 0.95;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 16px;
+      color: var(--orange-strong);
+      font-weight: 800;
+    }
+
+    .card-link::after {
+      content: "->";
+      transition: transform 0.4s cubic-bezier(.22, 1, .36, 1), letter-spacing 0.4s ease;
+    }
+
+    .card:hover .card-link::after {
+      transform: translateX(8px);
+    }
+
+    .cta-strip {
+      margin-top: 26px;
+      padding: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      background:
+        linear-gradient(135deg, rgba(244, 124, 32, 0.16), rgba(0, 0, 0, 0.3)),
+        linear-gradient(180deg, rgba(22, 22, 22, 0.96), rgba(8, 8, 8, 0.96));
+      animation-delay: 0.12s;
+    }
+
+    .cta-strip::before {
+      content: "";
+      position: absolute;
+      inset: auto -40px -60px auto;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(244, 124, 32, 0.26), transparent 68%);
+    }
+
+    .cta-strip h2 {
+      margin: 0 0 8px;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height: 0.92;
+    }
+
+    .cta-strip p {
+      margin: 0;
+      color: rgba(246, 238, 232, 0.82);
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    .footer {
+      padding: 22px 0 36px;
+      color: #8f847d;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .cards-grid,
+      .locations-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .header-inner {
+        flex-wrap: wrap;
+      }
+
+      .nav {
+        width: 100%;
+        order: 3;
+        justify-content: flex-start;
+        gap: 12px;
+        overflow-x: auto;
+        padding-bottom: 6px;
+        scrollbar-width: none;
+      }
+
+      .nav::-webkit-scrollbar {
+        display: none;
+      }
+
+      .nav a {
+        flex: 0 0 auto;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .hero-main {
+        min-height: 520px;
+        padding: 24px;
+      }
+
+      .hero-side,
+      .cta-strip {
+        padding: 22px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .brand-mark {
+        width: 60px;
+        height: 60px;
+      }
+
+      .brand-copy strong {
+        font-size: 1.35rem;
+      }
+
+      .hero-title {
+        font-size: clamp(3rem, 17vw, 4.6rem);
+      }
+
+      .hero-copy,
+      .card p,
+      .section-copy {
+        font-size: 0.95rem;
+      }
+
+      .card,
+      .cta-strip {
+        border-radius: 24px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .container {
+        width: min(calc(100% - 20px), var(--max));
+      }
+
+      .header-button,
+      .button {
+        width: 100%;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Suindara Indaiatuba">
+        <div class="brand-mark">
+          <img src="images/suindara-logo.jpg" alt="Logo Suindara">
+        </div>
+        <div class="brand-copy">
+          <strong>Suindara</strong>
+          <span>Indaiatuba</span>
+        </div>
+      </a>
+
+      <nav class="nav" aria-label="Navegacao principal">
+        <a href="#pratos">Pratos</a>
+        <a href="#locais">Locais</a>
+        <a href="#contato">Contato</a>
+      </nav>
+
+      <a class="header-button" href="https://api.whatsapp.com/send/?phone=5519999772427" target="_blank" rel="noreferrer">
+        Pedir agora
+      </a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <article class="hero-main">
+          <span class="eyebrow">Sabor que chama no clique</span>
+          <h1 class="hero-title">Suindara Indaiatuba</h1>
+          <p class="hero-copy">
+            Sabor de comida caseira, feita com carinho, tempero de verdade e aquele almoco caprichado
+            que faz todo mundo querer voltar.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://api.whatsapp.com/send/?phone=5519999772427" target="_blank" rel="noreferrer">
+              Chamar no WhatsApp
+            </a>
+            <a class="button button-secondary" href="https://www.instagram.com/suindaraindaiatuba/" target="_blank" rel="noreferrer">
+              Ver Instagram
+            </a>
+          </div>
+        </article>
+
+        <aside class="hero-side">
+          <div class="mini-card mini-card-image">
+            <img src="images/suindara-buffet.jpg" alt="Buffet a vontade do Suindara">
+          </div>
+
+          <div class="mini-card mini-card-image">
+            <img src="images/suindara-marmita-card.jpg" alt="Marmitas do Suindara">
+          </div>
+
+          <div class="mini-card whatsapp-card" id="contato">
+            <img src="images/suindara-whatsapp-card.jpg" alt="Card de pedido do Suindara">
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="pratos">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="section-kicker">Pratos</span>
+            <h2 class="section-title">Alguns destaques do Suindara</h2>
+          </div>
+        </div>
+
+        <div class="cards-grid">
+          <article class="card">
+            <div class="image-frame">
+              <img src="images/suindara-parmegiana.jpg" alt="Parmegiana do Suindara">
+            </div>
+            <span class="tag">Mais pedido</span>
+            <h3>Parmegiana</h3>
+            <p>Parmegiana dourada, molho caseiro e queijo derretido para um almoco farto e cheio de sabor.</p>
+          </article>
+
+          <article class="card">
+            <div class="image-frame">
+              <img src="images/suindara-churrasco.jpg" alt="Churrasco do Suindara">
+            </div>
+            <span class="tag">Especial da casa</span>
+            <h3>Churrasco</h3>
+            <p>Carnes suculentas, preparo no ponto certo e aquele aroma de churrasco que abre o apetite na hora.</p>
+          </article>
+
+          <article class="card">
+            <div class="image-frame">
+              <img src="images/suindara-marmita-card.jpg" alt="Marmita do Suindara">
+            </div>
+            <span class="tag">Delivery</span>
+            <h3>Marmitas</h3>
+            <p>Marmitas completas, bem servidas e perfeitas para levar o gostinho de comida feita em casa para o seu dia.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="locais">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="section-kicker">Locais</span>
+            <h2 class="section-title">Onde encontrar o Suindara</h2>
+          </div>
+        </div>
+
+        <div class="locations-grid">
+          <article class="card">
+            <div class="image-frame">
+              <img src="images/suindara-localizacao-card.jpg" alt="Localizacao do Suindara em Indaiatuba">
+            </div>
+            <span class="tag">Indaiatuba</span>
+            <h3>Centro</h3>
+            <p>Rua Voluntario Joao dos Santos, 142. Um bloco simples para localizacao e visita.</p>
+            <a class="card-link" href="https://www.waze.com/live-map/directions/brazil/state-of-sao-paulo/indaiatuba/suindara?to=place.ChIJUa7yEFKzyJQRNnlKcY6J_xE" target="_blank" rel="noreferrer">
+              Abrir rota
+            </a>
+          </article>
+
+          <article class="card">
+            <div class="image-frame">
+              <img src="images/suindara-pedido-rapido.jpg" alt="Pedido rapido do Suindara">
+            </div>
+            <span class="tag">Online</span>
+            <h3>Pedido rapido</h3>
+            <p>Fluxo pensado para cair no WhatsApp ou no Instagram sem excesso de texto.</p>
+            <a class="card-link" href="https://www.instagram.com/suindaraindaiatuba/" target="_blank" rel="noreferrer">
+              Abrir Instagram
+            </a>
+          </article>
+        </div>
+
+        <div class="cta-strip">
+          <div>
+            <h2>Fazer pedido agora</h2>
+          </div>
+          <a class="button button-primary" href="https://api.whatsapp.com/send/?phone=5519999772427" target="_blank" rel="noreferrer">
+            Ir para o WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      Suindara Indaiatuba • layout atualizado com foco em laranja, preto e conversao
+    </div>
+  </footer>
+</body>
+</html>
